@@ -16,6 +16,19 @@ star_wars_gl.game = {
         //On ajoute la surface à la caméra :
         star_wars_gl.gfx_engine.camera.add(plane);
 
+        const listener = new THREE.AudioListener();
+        star_wars_gl.gfx_engine.scene.add(listener);
+
+
+        const audioLoader = new THREE.AudioLoader();
+        let music = new THREE.PositionalAudio(listener);
+        audioLoader.load('./audio/brown_sugar.ogg', function (buffer) {
+            music.setBuffer(buffer);
+            music.setRefDistance(20);
+            music.play();
+        });
+        star_wars_gl.gfx_engine.scene.add(music);
+
         function entierAleatoire(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
@@ -43,8 +56,8 @@ star_wars_gl.game = {
         loader.load('./fbx/source/ship_ok.fbx', function (object) {
             star_wars_gl.game.ship = object;
             star_wars_gl.game.ship.position.set(1, -10, -60);
-            star_wars_gl.game.ship.rotateY(THREE.Math.degToRad(180))
-            star_wars_gl.game.ship.scale.set(0.03, 0.03, 0.03);
+            star_wars_gl.game.ship.rotateY(THREE.Math.degToRad(180));
+            star_wars_gl.game.ship.scale.set(0.025, 0.025, 0.025);
             star_wars_gl.gfx_engine.scene.add(star_wars_gl.game.ship);
             star_wars_gl.gfx_engine.camera.add(star_wars_gl.game.ship);
             console.log("ship added !");
@@ -55,7 +68,6 @@ star_wars_gl.game = {
                     child.castShadow = true;
                     child.receiveShadow = true;
                 }
-
             });
 
         });
@@ -129,15 +141,21 @@ star_wars_gl.game = {
         for (let j = 0; j < this.buildings.length; j++) {
             if (this.buildings[j].position.z > star_wars_gl.gfx_engine.camera.position.z) {
                 this.buildings[j].translateZ(-2500 - 50);
-                this.buildings[j].position.x = Math.floor(Math.random() * (250 - -250 + 1)) + -250
+                this.buildings[j].position.x = Math.floor(Math.random() * (250 - -250 + 1)) + -250;
             }
         }
         for (let j = 0; j < this.planetes.length; j++) {
             if (this.planetes[j].position.z > star_wars_gl.gfx_engine.camera.position.z) {
                 this.planetes[j].translateZ(-2500 - 50);
-                this.planetes[j].position.x = Math.floor(Math.random() * (250 - -250 + 1)) + -250
+                this.planetes[j].position.x = Math.floor(Math.random() * (250 - -250 + 1)) + -250;
             }
         }
+        //déplacement hors de l'écran :
+        if (star_wars_gl.game.ship.position.x >= 40) star_wars_gl.game.ship.position.x -= 1;
+        if (star_wars_gl.game.ship.position.x <= -40) star_wars_gl.game.ship.position.x += 1;
+        
+        if (star_wars_gl.game.ship.position.y <= -14) star_wars_gl.game.ship.position.y += 1;
+        if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
 
     }
 };

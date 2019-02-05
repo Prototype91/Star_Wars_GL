@@ -67,6 +67,6 @@ star_wars_gl.gfx_engine = {
     },
 
     update() {
-        this.renderer.render(this.scene, this.camera)
+        this.renderer.render(this.scene, this.camera);
     }
 };
