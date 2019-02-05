@@ -18,10 +18,14 @@ star_wars_gl.gfx_engine = {
 
         const perf = star_wars_gl.configuration.high_performance || true;
 
-        //light pour le sapin :
+        //light pour le vaiseau :
         const light = new THREE.DirectionalLight(0xffffff);
         light.position.set(0, 0, 10);
         this.scene.add(light);
+
+        const light2 = new THREE.AmbientLight(0xffffff, 0.3);
+        light2.position.set(0, 0, -20);
+        star_wars_gl.gfx_engine.camera.add(light2);
 
         // --- renderer :
         this.renderer = new THREE.WebGLRenderer({ antialias: perf }); //option qui prend des ressources
