@@ -21,7 +21,7 @@ star_wars_gl.game = {
         }
 
         //Jupiters :
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
 
             const geometry_jupiter = new THREE.SphereGeometry(100, 32, 32);
             const texture_loader = new THREE.TextureLoader();
@@ -31,9 +31,9 @@ star_wars_gl.game = {
 
 
             let cloned_jupiters = mesh_jupiter.clone();
-            cloned_jupiters.position.set(entierAleatoire(-1000, 1000), 30, entierAleatoire(-15, -2500));
+            cloned_jupiters.position.set(entierAleatoire(-1000, 1000), 140, entierAleatoire(-15, -2500));
             star_wars_gl.game.planetes.push(cloned_jupiters);
-            cloned_jupiters.scale.set(0.05, 0.05, 0.05);
+            cloned_jupiters.scale.set(0.25, 0.25, 0.25);
             star_wars_gl.gfx_engine.scene.add(cloned_jupiters);
             console.log("jupiters added !");
         };
@@ -124,7 +124,7 @@ star_wars_gl.game = {
 
     update: function () {
         const gfx = star_wars_gl.gfx_engine;
-        //gfx.camera.translateZ(-2);
+        gfx.camera.translateZ(-2);
 
         for (let j = 0; j < this.buildings.length; j++) {
             if (this.buildings[j].position.z > star_wars_gl.gfx_engine.camera.position.z) {
