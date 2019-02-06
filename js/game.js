@@ -26,10 +26,10 @@ star_wars_gl.game = {
             music.setBuffer(buffer);
             music.setRefDistance(20);
             music.play();
-            
+
         });
         star_wars_gl.gfx_engine.scene.add(music);
-        
+
 
         function entierAleatoire(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -108,19 +108,22 @@ star_wars_gl.game = {
         const onKeyDown = function (event) {
             switch (event.keyCode) {
                 case 38: // up
-                    star_wars_gl.game.ship.translateY(3);
+                    star_wars_gl.game.ship.translateY(1);
                     console.log('up');
                     break;
                 case 37: // left
-                    star_wars_gl.game.ship.translateX(3);
+                    star_wars_gl.game.ship.translateX(1);
                     console.log('left');
+                    console.log("x : " + star_wars_gl.game.ship.position.x)
+                    console.log("y : " + star_wars_gl.game.ship.position.y)
+                    console.log("z : " + star_wars_gl.game.ship.position.z)
                     break;
                 case 40: // down
-                    star_wars_gl.game.ship.translateY(-3);
+                    star_wars_gl.game.ship.translateY(-1);
                     console.log('down');
                     break;
                 case 39: // right
-                    star_wars_gl.game.ship.translateX(-3);
+                    star_wars_gl.game.ship.translateX(-1);
                     console.log('right');
                     break;
             }
@@ -138,6 +141,8 @@ star_wars_gl.game = {
         const gfx = star_wars_gl.gfx_engine;
         gfx.camera.translateZ(-2);
 
+        if (score_div.innerText >= 0) score_div.innerText++;
+
         for (let j = 0; j < this.buildings.length; j++) {
             if (this.buildings[j].position.z > star_wars_gl.gfx_engine.camera.position.z) {
                 this.buildings[j].translateZ(-2500 - 50);
@@ -153,9 +158,15 @@ star_wars_gl.game = {
         //déplacement hors de l'écran :
         if (star_wars_gl.game.ship.position.x >= 40) star_wars_gl.game.ship.position.x -= 1;
         if (star_wars_gl.game.ship.position.x <= -40) star_wars_gl.game.ship.position.x += 1;
-        
+
         if (star_wars_gl.game.ship.position.y <= -14) star_wars_gl.game.ship.position.y += 1;
         if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
+
+        for (let k = 0; k < star_wars_gl.game.buildings.length; k++) {
+            if (star_wars_gl.game.ship.position.z == star_wars_gl.game.buildings[k].position.z) {
+                console.log("colision");
+            }
+        }
 
     }
 };

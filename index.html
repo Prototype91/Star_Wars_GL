@@ -20,6 +20,7 @@
         }
 
         #blocker {
+            background-image: url("./img/accueil.png");
             position: absolute;
             width: 100%;
             height: 100%;
@@ -43,7 +44,6 @@
             box-align: center;
             color: #ffffff;
             text-align: center;
-            cursor: pointer;
         }
 
         #score {
@@ -61,12 +61,31 @@
             left: 90%;
             font-size: 20px;
         }
+
+        #score_nb {
+            position: absolute;
+            left: 9%;
+            top: 92.66%;
+            color: black;
+            font-size: 20px;
+        
+        }
+
+        #vie_nb {
+            position: absolute;
+            left: 95%;
+            top: 92.88%;
+            color: black;
+            font-size: 20px;
+        
+        }
     </style>
 
 </head>
 
 <body>
     <div id="blocker">
+
 
         <div id="instructions">
             <span style="font-size:40px">Appuie sur la touche Entrée pour jouer</span>
@@ -78,11 +97,30 @@
     </div>
 
     <div id="vie">
-        <p> Vie(s) : 5</p>
+        <p> Vie(s) :</p>
     </div>
+
+    <div id="vie_nb">
+        <p>5</p>
+    </div>
+
     <div id="score">
-        <p> Score : 9658 </p>
+        <p> Score :</p>
     </div>
+
+    <div id="score_nb">
+        <p>0</p>
+    </div>
+
+    <script>
+        let score_div = document.getElementById('score_nb');
+        score_div.innerText = 0;
+
+        let vie_div = document.getElementById('vie_nb');
+        vie_div.innerText = 5;
+
+        
+    </script>
 
     <!--On appelle le moteur et le fichier webgl-->
     <script src="js/three.min.js"></script>
