@@ -3,22 +3,40 @@ const star_wars_gl = {
     start: function (config) {
         //debug mode pour afficher ou pas les console.log :
         if (config.debug_mode == false) {
-            console.log = function () {}
+            console.log = function () { }
         }
         this.configuration = config;
-        this.gfx_engine.init(config.gfx_engine);
-        
-        this.game.init(config.game);
 
-        this.update();
+        function gameIsStarted() {
+            star_wars_gl.gfx_engine.init(config.gfx_engine);
 
-        console.log('star_wars_gl is started !');
+            star_wars_gl.game.init(config.game);
+
+            star_wars_gl.update();
+
+            console.log('star_wars_gl is started !');
+        }
+        const blocker = document.getElementById('blocker');
+        const instructions = document.getElementById('instructions');
+
+        const onKeyDown = function (event) {
+            switch (event.keyCode) {
+                case 13: // enter
+                    instructions.style.display = 'none';
+                    blocker.style.display = 'none';
+                    gameIsStarted()
+                    console.log('enter');
+                    break;;
+            }
+        };
+        document.addEventListener('keydown', onKeyDown, false);
+
     },
 
-    update: function(){
+    update: function () {
         requestAnimFrame(star_wars_gl.update)
         star_wars_gl.game.update();
         star_wars_gl.gfx_engine.update();
-        
+
     }
 };

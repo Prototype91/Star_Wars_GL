@@ -19,15 +19,17 @@ star_wars_gl.game = {
         const listener = new THREE.AudioListener();
         star_wars_gl.gfx_engine.scene.add(listener);
 
-
+        //Musique
         const audioLoader = new THREE.AudioLoader();
         let music = new THREE.PositionalAudio(listener);
-        audioLoader.load('./audio/brown_sugar.ogg', function (buffer) {
+        audioLoader.load('./audio/ship_sound.ogg', function (buffer) {
             music.setBuffer(buffer);
             music.setRefDistance(20);
             music.play();
+            
         });
         star_wars_gl.gfx_engine.scene.add(music);
+        
 
         function entierAleatoire(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -50,6 +52,8 @@ star_wars_gl.game = {
             star_wars_gl.gfx_engine.scene.add(cloned_jupiters);
             console.log("jupiters added !");
         };
+
+
 
         // Ship :
         const loader = new THREE.FBXLoader();
@@ -104,22 +108,18 @@ star_wars_gl.game = {
         const onKeyDown = function (event) {
             switch (event.keyCode) {
                 case 38: // up
-                case 87: // w
                     star_wars_gl.game.ship.translateY(3);
                     console.log('up');
                     break;
                 case 37: // left
-                case 65: // a
                     star_wars_gl.game.ship.translateX(3);
                     console.log('left');
                     break;
                 case 40: // down
-                case 83: // s
                     star_wars_gl.game.ship.translateY(-3);
                     console.log('down');
                     break;
                 case 39: // right
-                case 68: // d
                     star_wars_gl.game.ship.translateX(-3);
                     console.log('right');
                     break;
