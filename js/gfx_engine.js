@@ -61,8 +61,6 @@ star_wars_gl.gfx_engine = {
                 };
         })();
 
-
-
         console.log("gfx_engine ready !");
     },
 

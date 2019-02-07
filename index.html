@@ -54,6 +54,15 @@
             font-size: 20px;
         }
 
+        #score_nb {
+            position: absolute;
+            left: 9%;
+            top: 92.66%;
+            color: black;
+            font-size: 20px;
+
+        }
+
         #vie {
             color: rgb(0, 0, 0);
             position: absolute;
@@ -62,22 +71,13 @@
             font-size: 20px;
         }
 
-        #score_nb {
-            position: absolute;
-            left: 9%;
-            top: 92.66%;
-            color: black;
-            font-size: 20px;
-        
-        }
-
         #vie_nb {
             position: absolute;
             left: 95%;
             top: 92.88%;
             color: black;
             font-size: 20px;
-        
+
         }
     </style>
 
@@ -85,15 +85,11 @@
 
 <body>
     <div id="blocker">
-
-
         <div id="instructions">
             <span style="font-size:40px">Appuie sur la touche Entrée pour jouer</span>
             <br />
             (Et utilises les flêches de ton clavier pour te déplacer !) <br> Enjoy
         </div>
-
-
     </div>
 
     <div id="vie">
@@ -113,13 +109,13 @@
     </div>
 
     <script>
+        //Affichage du score :
         let score_div = document.getElementById('score_nb');
         score_div.innerText = 0;
 
+        //Affichage de la vie :
         let vie_div = document.getElementById('vie_nb');
         vie_div.innerText = 5;
-
-        
     </script>
 
     <!--On appelle le moteur et le fichier webgl-->

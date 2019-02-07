@@ -53,8 +53,6 @@ star_wars_gl.game = {
             console.log("jupiters added !");
         };
 
-
-
         // Ship :
         const loader = new THREE.FBXLoader();
         loader.load('./fbx/source/ship_ok.fbx', function (object) {
@@ -63,7 +61,7 @@ star_wars_gl.game = {
             star_wars_gl.game.ship.rotateY(THREE.Math.degToRad(180));
             star_wars_gl.game.ship.scale.set(0.025, 0.025, 0.025);
             star_wars_gl.gfx_engine.scene.add(star_wars_gl.game.ship);
-            star_wars_gl.gfx_engine.camera.add(star_wars_gl.game.ship);
+            //star_wars_gl.gfx_engine.camera.add(star_wars_gl.game.ship);
             console.log("ship added !");
 
             star_wars_gl.game.ship.traverse(function (child) {
@@ -78,10 +76,6 @@ star_wars_gl.game = {
 
         //Buildings :
         loader.load('./fbx/source/castel maria.fbx', function (object) {
-
-            function entierAleatoire(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
 
             //Boucle de génération des buildings aléatoires :
             for (let i = 0; i < 100; i++) {
@@ -140,11 +134,12 @@ star_wars_gl.game = {
     update: function () {
         const gfx = star_wars_gl.gfx_engine;
         gfx.camera.translateZ(-2);
+        star_wars_gl.game.ship.translateZ(2);
 
         if (score_div.innerText >= 0) score_div.innerText++;
 
         for (let j = 0; j < this.buildings.length; j++) {
-            if (this.buildings[j].position.z > star_wars_gl.gfx_engine.camera.position.z) {
+            if (this.buildings[j].position.z > star_wars_gl.gfx_engine.camera.position.z + 5) {
                 this.buildings[j].translateZ(-2500 - 50);
                 this.buildings[j].position.x = Math.floor(Math.random() * (250 - -250 + 1)) + -250;
             }
@@ -163,9 +158,11 @@ star_wars_gl.game = {
         if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
 
         for (let k = 0; k < star_wars_gl.game.buildings.length; k++) {
-            if (star_wars_gl.game.ship.position.z == star_wars_gl.game.buildings[k].position.z) {
+            if (star_wars_gl.game.buildings[k].position.z == star_wars_gl.game.ship.position.z && star_wars_gl.game.buildings[k].position.x == star_wars_gl.game.ship.position.x) {
                 console.log("colision");
             }
+            //console.log(star_wars_gl.game.buildings[k].position.x)
+            
         }
 
     }
