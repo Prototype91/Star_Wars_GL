@@ -78,10 +78,10 @@ star_wars_gl.game = {
         loader.load('./fbx/source/castel maria.fbx', function (object) {
 
             //Boucle de génération des buildings aléatoires :
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 300; i++) {
 
                 let cloned_buildings = object.clone();
-                cloned_buildings.position.set(entierAleatoire(-200, 200), -30, entierAleatoire(-15, -2500));
+                cloned_buildings.position.set(entierAleatoire(-1000, 1000), -30, entierAleatoire(-15, -2500));
                 star_wars_gl.game.buildings.push(cloned_buildings);
                 cloned_buildings.scale.set(0.2, 0.2, 0.2);
                 star_wars_gl.gfx_engine.scene.add(cloned_buildings);
@@ -123,6 +123,7 @@ star_wars_gl.game = {
             }
         };
         document.addEventListener('keydown', onKeyDown, false);
+
 
         //On affiche le résultat à l'aide du renderer
         star_wars_gl.gfx_engine.renderer.setClearColor('#2266ff');
@@ -172,6 +173,10 @@ star_wars_gl.game = {
                 star_wars_gl.gfx_engine.scene.remove(star_wars_gl.game.buildings[k]);
                 console.log("colision");
                 vie_div.innerText -= 1;
+                
+                if(vie_div.innerText == 0){
+                    console.log("Game Over !")
+                }
             }
 
         };
