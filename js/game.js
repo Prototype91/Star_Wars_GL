@@ -57,7 +57,7 @@ star_wars_gl.game = {
         const loader = new THREE.FBXLoader();
         loader.load('./fbx/source/ship_ok.fbx', function (object) {
             star_wars_gl.game.ship = object;
-            star_wars_gl.game.ship.position.set(1, -10, -60);
+            object.position.set(0, -10, -60);
             star_wars_gl.game.ship.rotateY(THREE.Math.degToRad(180));
             star_wars_gl.game.ship.scale.set(0.025, 0.025, 0.025);
             star_wars_gl.gfx_engine.scene.add(star_wars_gl.game.ship);
@@ -81,7 +81,7 @@ star_wars_gl.game = {
             for (let i = 0; i < 100; i++) {
 
                 let cloned_buildings = object.clone();
-                cloned_buildings.position.set(entierAleatoire(-1000, 1000), -30, entierAleatoire(-15, -2500));
+                cloned_buildings.position.set(entierAleatoire(-200, 200), -30, entierAleatoire(-15, -2500));
                 star_wars_gl.game.buildings.push(cloned_buildings);
                 cloned_buildings.scale.set(0.2, 0.2, 0.2);
                 star_wars_gl.gfx_engine.scene.add(cloned_buildings);
@@ -124,11 +124,9 @@ star_wars_gl.game = {
         };
         document.addEventListener('keydown', onKeyDown, false);
 
-
         //On affiche le résultat à l'aide du renderer
         star_wars_gl.gfx_engine.renderer.setClearColor('#2266ff');
         star_wars_gl.gfx_engine.renderer.render(star_wars_gl.gfx_engine.scene, star_wars_gl.gfx_engine.camera);
-
     },
 
     update: function () {
@@ -158,12 +156,25 @@ star_wars_gl.game = {
         if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
 
         for (let k = 0; k < star_wars_gl.game.buildings.length; k++) {
-            if (star_wars_gl.game.buildings[k].position.z == star_wars_gl.game.ship.position.z && star_wars_gl.game.buildings[k].position.x == star_wars_gl.game.ship.position.x) {
+
+            if ((star_wars_gl.game.ship.position.x - 10 >= star_wars_gl.game.buildings[k].position.x - 10
+                && star_wars_gl.game.ship.position.x - 10 <= star_wars_gl.game.buildings[k].position.x + 10
+                &&
+                star_wars_gl.game.ship.position.z - 10 >= star_wars_gl.game.buildings[k].position.z - 10
+                && star_wars_gl.game.ship.position.z - 10 <= star_wars_gl.game.buildings[k].position.z + 10)
+                ||
+                (star_wars_gl.game.ship.position.x + 10 >= star_wars_gl.game.buildings[k].position.x - 10
+                    && star_wars_gl.game.ship.position.x + 10 <= star_wars_gl.game.buildings[k].position.x + 10
+                    &&
+                    star_wars_gl.game.ship.position.z + 10 >= star_wars_gl.game.buildings[k].position.z - 10
+                    && star_wars_gl.game.ship.position.z + 10 <= star_wars_gl.game.buildings[k].position.z + 10)) {
+
+                star_wars_gl.gfx_engine.scene.remove(star_wars_gl.game.buildings[k]);
                 console.log("colision");
+                vie_div.innerText -= 1;
             }
-            //console.log(star_wars_gl.game.buildings[k].position.x)
-            
-        }
+
+        };
 
     }
 };
