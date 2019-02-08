@@ -3,16 +3,16 @@ star_wars_gl.game = {
     planetes: [],
     ship: 0,
     pause: true,
-    move_down : false,
-    move_left : false,
-    move_right : false,
-    move_up : false,
+    move_down: false,
+    move_left: false,
+    move_right: false,
+    move_up: false,
     init: function (config) {
 
         //Début du jeu :
         console.log("Game is ready !");
 
-        
+
 
         let material_plane = new THREE.MeshBasicMaterial({ color: 0xE5DBD2 });
 
@@ -161,13 +161,13 @@ star_wars_gl.game = {
 
     update: function () {
         const gfx = star_wars_gl.gfx_engine;
-        gfx.camera.translateZ(-2);
-        star_wars_gl.game.ship.translateZ(2);
+        if (star_wars_gl.game.pause == false) gfx.camera.translateZ(-2);
+        if (star_wars_gl.game.pause == false) star_wars_gl.game.ship.translateZ(2);
 
-        if(star_wars_gl.game.move_down) star_wars_gl.game.ship.translateY(-1), console.log("move_down = true");
-        if(star_wars_gl.game.move_up) star_wars_gl.game.ship.translateY(1);
-        if(star_wars_gl.game.move_left) star_wars_gl.game.ship.translateX(1);
-        if(star_wars_gl.game.move_right) star_wars_gl.game.ship.translateX(-1);
+        if (star_wars_gl.game.move_down) star_wars_gl.game.ship.translateY(-1), console.log("move_down = true");
+        if (star_wars_gl.game.move_up) star_wars_gl.game.ship.translateY(1);
+        if (star_wars_gl.game.move_left) star_wars_gl.game.ship.translateX(1);
+        if (star_wars_gl.game.move_right) star_wars_gl.game.ship.translateX(-1);
 
         if (score_div.innerText >= 0 && star_wars_gl.game.pause == false) score_div.innerText++;
 
