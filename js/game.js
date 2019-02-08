@@ -8,8 +8,9 @@ star_wars_gl.game = {
     move_left: false,
     move_right: false,
     move_up: false,
+    move_forward: false,
     damage: false,
-    red: function(){
+    red: function () {
         star_wars_gl.game.ship.material.emissive.setHex(star_wars_gl.game.ship.currentHex);
         console.log('red')
 
@@ -141,6 +142,10 @@ star_wars_gl.game = {
                     //star_wars_gl.game.ship.translateX(-2);
                     //console.log('right');
                     break;
+                case 68: //forward
+                    star_wars_gl.game.move_forward = true;
+                    break;
+
             }
         };
 
@@ -158,6 +163,9 @@ star_wars_gl.game = {
                 case 39: // right
                     star_wars_gl.game.move_right = false;
                     break;
+                case 68: //forward
+                    star_wars_gl.game.move_forward = false;
+                    break;
             }
         };
         document.addEventListener('keydown', onKeyDown, false);
@@ -172,8 +180,8 @@ star_wars_gl.game = {
     update: function () {
         //Gestion des déplacements verticaux du vaisseau et de la caméra (séparemment) :
         const gfx = star_wars_gl.gfx_engine;
-        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) gfx.camera.translateZ(-3.5);
-        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) star_wars_gl.game.ship.translateZ(3.5);
+        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) gfx.camera.translateZ(-4);
+        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) star_wars_gl.game.ship.translateZ(4);
 
         //Gestion du Game Over :
         if (star_wars_gl.game.game_over == true) {
@@ -188,6 +196,9 @@ star_wars_gl.game = {
         if (star_wars_gl.game.move_up) star_wars_gl.game.ship.translateY(1);
         if (star_wars_gl.game.move_left) star_wars_gl.game.ship.translateX(1);
         if (star_wars_gl.game.move_right) star_wars_gl.game.ship.translateX(-1);
+        if (star_wars_gl.game.move_forward) star_wars_gl.game.ship.translateZ(2.5),
+            star_wars_gl.gfx_engine.camera.translateZ(-2.5),
+            score_div.innerText++;
 
         //Gestion du score :
         if (score_div.innerText >= 0 && star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) score_div.innerText++;
@@ -210,7 +221,7 @@ star_wars_gl.game = {
         if (star_wars_gl.game.ship.position.x <= -40) star_wars_gl.game.ship.position.x += 1;
 
         if (star_wars_gl.game.ship.position.y <= -17) star_wars_gl.game.ship.position.y += 1;
-        if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
+        if (star_wars_gl.game.ship.position.y >= 17) star_wars_gl.game.ship.position.y -= 1;
 
         for (let k = 0; k < star_wars_gl.game.buildings.length; k++) {
 
