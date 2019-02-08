@@ -196,7 +196,7 @@ star_wars_gl.game = {
         if (star_wars_gl.game.move_up) star_wars_gl.game.ship.translateY(1);
         if (star_wars_gl.game.move_left) star_wars_gl.game.ship.translateX(1);
         if (star_wars_gl.game.move_right) star_wars_gl.game.ship.translateX(-1);
-        if (star_wars_gl.game.move_forward) star_wars_gl.game.ship.translateZ(2.5),
+        if (star_wars_gl.game.move_forward && star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) star_wars_gl.game.ship.translateZ(2.5),
             star_wars_gl.gfx_engine.camera.translateZ(-2.5),
             score_div.innerText++;
 
