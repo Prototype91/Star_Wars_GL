@@ -9,6 +9,11 @@ star_wars_gl.game = {
     move_right: false,
     move_up: false,
     damage: false,
+    red: function(){
+        star_wars_gl.game.ship.material.emissive.setHex(star_wars_gl.game.ship.currentHex);
+        console.log('red')
+
+    },
     init: function (config) {
 
         //Début du jeu :
@@ -66,7 +71,8 @@ star_wars_gl.game = {
         loader.load('./fbx/source/ship_ok.fbx', function (object) {
 
             star_wars_gl.game.ship = object.children[0].children[0];
-            console.log(star_wars_gl.game.ship)
+            console.log(star_wars_gl.game.ship);
+            star_wars_gl.game.ship.currentHex = star_wars_gl.game.ship.material.emissive.getHex();
             star_wars_gl.game.ship.position.set(0, -10, -60);
             star_wars_gl.game.ship.rotateY(THREE.Math.degToRad(180));
             star_wars_gl.game.ship.scale.set(0.025, 0.025, 0.025);
@@ -88,7 +94,7 @@ star_wars_gl.game = {
         loader.load('./fbx/source/castel maria.fbx', function (object) {
 
             //Boucle de génération des buildings aléatoires :
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 150; i++) {
 
                 let cloned_buildings = object.clone();
                 cloned_buildings.position.set(entierAleatoire(-1000, 1000), -30, entierAleatoire(-15, -2500));
@@ -115,25 +121,25 @@ star_wars_gl.game = {
                 case 38: // up
                     star_wars_gl.game.move_up = true;
                     //star_wars_gl.game.ship.translateY(2);
-                    console.log('up');
+                    //console.log('up');
                     break;
                 case 37: // left
                     star_wars_gl.game.move_left = true;
                     //star_wars_gl.game.ship.translateX(2);
-                    console.log('left');
-                    console.log("x : " + star_wars_gl.game.ship.position.x);
-                    console.log("y : " + star_wars_gl.game.ship.position.y);
-                    console.log("z : " + star_wars_gl.game.ship.position.z);
+                    //console.log('left');
+                    //console.log("x : " + star_wars_gl.game.ship.position.x);
+                    //console.log("y : " + star_wars_gl.game.ship.position.y);
+                    //console.log("z : " + star_wars_gl.game.ship.position.z);
                     break;
                 case 40: // down
                     star_wars_gl.game.move_down = true;
                     //star_wars_gl.game.ship.translateY(-2);
-                    console.log('down');
+                    //console.log('down');
                     break;
                 case 39: // right
                     star_wars_gl.game.move_right = true;
                     //star_wars_gl.game.ship.translateX(-2);
-                    console.log('right');
+                    //console.log('right');
                     break;
             }
         };
@@ -166,9 +172,10 @@ star_wars_gl.game = {
     update: function () {
         //Gestion des déplacements verticaux du vaisseau et de la caméra (séparemment) :
         const gfx = star_wars_gl.gfx_engine;
-        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) gfx.camera.translateZ(-2);
-        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) star_wars_gl.game.ship.translateZ(2);
+        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) gfx.camera.translateZ(-3.5);
+        if (star_wars_gl.game.pause == false && star_wars_gl.game.game_over == false) star_wars_gl.game.ship.translateZ(3.5);
 
+        //Gestion du Game Over :
         if (star_wars_gl.game.game_over == true) {
             instructions2.style.display = '';
             blocker2.style.display = '';
@@ -177,7 +184,7 @@ star_wars_gl.game = {
         }
 
         //Gestion des déplacements :
-        if (star_wars_gl.game.move_down) star_wars_gl.game.ship.translateY(-1), console.log("move_down = true");
+        if (star_wars_gl.game.move_down) star_wars_gl.game.ship.translateY(-1);
         if (star_wars_gl.game.move_up) star_wars_gl.game.ship.translateY(1);
         if (star_wars_gl.game.move_left) star_wars_gl.game.ship.translateX(1);
         if (star_wars_gl.game.move_right) star_wars_gl.game.ship.translateX(-1);
@@ -199,11 +206,11 @@ star_wars_gl.game = {
             }
         }
         //déplacement hors de l'écran :
-        if (star_wars_gl.game.ship.position.x >= 24.5) star_wars_gl.game.ship.position.x -= 1;
-        if (star_wars_gl.game.ship.position.x <= -24.5) star_wars_gl.game.ship.position.x += 1;
+        if (star_wars_gl.game.ship.position.x >= 40) star_wars_gl.game.ship.position.x -= 1;
+        if (star_wars_gl.game.ship.position.x <= -40) star_wars_gl.game.ship.position.x += 1;
 
-        if (star_wars_gl.game.ship.position.y <= -14) star_wars_gl.game.ship.position.y += 1;
-        if (star_wars_gl.game.ship.position.y >= 8) star_wars_gl.game.ship.position.y -= 1;
+        if (star_wars_gl.game.ship.position.y <= -17) star_wars_gl.game.ship.position.y += 1;
+        if (star_wars_gl.game.ship.position.y >= 16) star_wars_gl.game.ship.position.y -= 1;
 
         for (let k = 0; k < star_wars_gl.game.buildings.length; k++) {
 
@@ -224,11 +231,12 @@ star_wars_gl.game = {
 
                     star_wars_gl.gfx_engine.scene.remove(star_wars_gl.game.buildings[k]);
 
-                    console.log("colision");
+                    //console.log("colision");
 
                     vie_div.innerText -= 1;
+                    star_wars_gl.game.ship.material.emissive.setHex(0xff0000);
 
-                    star_wars_gl.game.damage = true;
+                    setTimeout(star_wars_gl.game.red, 500);
 
                     //Gestion texture en rouge lors des dégats :
                     //star_wars_gl.game.ship.currentHex = star_wars_gl.game.ship.material.emissive.getHex();
@@ -238,24 +246,13 @@ star_wars_gl.game = {
                         star_wars_gl.game.game_over = true;
                         //instructions2.style.display = '';
                         //blocker2.style.display = '';
-                        console.log("Game Over !")
+                        console.log("Game Over !");
                     }
-                } else {
-                    star_wars_gl.game.damage = false
-                    //star_wars_gl.game.ship.material.emissive.setHex( star_wars_gl.game.ship.currentHex );
                 }
 
             }
 
         };
-
-        if (star_wars_gl.game.damage) {
-            star_wars_gl.game.ship.currentHex = star_wars_gl.game.ship.material.emissive.getHex();
-            star_wars_gl.game.ship.material.emissive.setHex(0xff0000);
-        }
-        if (star_wars_gl.game.damage == false) {
-            star_wars_gl.game.ship.material.emissive.setHex(star_wars_gl.game.ship.currentHex);
-        }
 
     }
 };

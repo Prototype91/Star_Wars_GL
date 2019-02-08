@@ -105,6 +105,9 @@
             font-size: 20px;
 
         }
+        span:first-child{
+            color: red
+        }
     </style>
 
 </head>
@@ -112,9 +115,10 @@
 <body>
     <div id="blocker">
         <div id="instructions">
+                <span style="font-size:60px">STAR WARS GL</span> <br> <br>
             <span style="font-size:40px">Appuie sur la touche Entrée pour jouer</span>
             <br />
-            (Et utilises les flêches de ton clavier pour te déplacer !) <br> Enjoy
+            (Et utilises les flêches de ton clavier pour te déplacer et ECHAP pour mettre en pause !) <br> Enjoy
         </div>
     </div>
     <div id="blocker2">
@@ -148,7 +152,7 @@
 
         //Affichage de la vie :
         let vie_div = document.getElementById('vie_nb');
-        vie_div.innerText = 10;
+        vie_div.innerText = 120;
     </script>
 
     <!--On appelle le moteur et le fichier webgl-->
@@ -163,7 +167,7 @@
     <!--Début du jeu :-->
     <script>
         star_wars_gl.start({
-            debug_mode: true,
+            debug_mode: false,
             high_performance: false,
             gfx_engine: {
                 camera_fov: 50
