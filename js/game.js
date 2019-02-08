@@ -94,7 +94,7 @@ star_wars_gl.game = {
         loader.load('./fbx/source/castel maria.fbx', function (object) {
 
             //Boucle de génération des buildings aléatoires :
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 100; i++) {
 
                 let cloned_buildings = object.clone();
                 cloned_buildings.position.set(entierAleatoire(-1000, 1000), -30, entierAleatoire(-15, -2500));
