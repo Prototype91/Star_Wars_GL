@@ -24,9 +24,15 @@ const star_wars_gl = {
                 case 13: // enter
                     instructions.style.display = 'none';
                     blocker.style.display = 'none';
+                    star_wars_gl.game.pause = false;
                     gameIsStarted()
                     console.log('enter');
-                    break;;
+                    break;
+                case 27 : //achap
+                instructions.style.display = '';
+                blocker.style.display = '';
+                star_wars_gl.game.pause = true;
+                break;
             }
         };
         document.addEventListener('keydown', onKeyDown, false);
