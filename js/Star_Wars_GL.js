@@ -5,6 +5,12 @@ const star_wars_gl = {
         const blocker = document.getElementById('blocker');
         const instructions = document.getElementById('instructions');
 
+        const blocker2 = document.getElementById('blocker2');
+        const instructions2 = document.getElementById('instructions2');
+
+        instructions2.style.display = 'none';
+        blocker2.style.display = 'none';
+
         const onKeyDown = function (event) {
             switch (event.keyCode) {
                 case 13: // enter
